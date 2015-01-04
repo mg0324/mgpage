@@ -1,0 +1,30 @@
+/*
+meigang 2015-1-4
+自定义分页导航的官方样式
+*/
+#mgpage{
+	list-style-type: none;
+	width: 100%;
+	color:gray;
+}
+#mgpage li{
+	float: left;
+	margin-left: 5px;
+	border: solid #bdbdbd 1px;
+	border-radius:3px;
+}
+#mgpage li,#mgpage li a{
+	display:block;
+	width:40px;
+	height: 20px;
+	text-align:center;
+	line-height:20px;
+	
+	text-decoration: none;
+	background: #8BC9FF;
+	
+}
+.isNow{
+	background: #8BCE30;	
+}
+

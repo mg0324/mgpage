@@ -1,11 +1,12 @@
 package com.mgang.page.tag;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
+
+import com.mgang.page.util.Page;
 
 /**
  * 
@@ -16,15 +17,31 @@ import javax.servlet.jsp.tagext.TagSupport;
 public class MgPageTag extends TagSupport{
 
 	private static final long serialVersionUID = 1L;
-	//list属性
-	private List list;
-	
-	public List getList() {
-		return list;
+	private String url;
+	private Page page;
+	private String id;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setList(List list) {
-		this.list = list;
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
@@ -32,9 +49,30 @@ public class MgPageTag extends TagSupport{
 		// TODO Auto-generated method stub
 		JspWriter out = pageContext.getOut();
 		StringBuffer sb = new StringBuffer();
-		for(Object obj : list){
-			sb.append(obj.toString()+"<br/>");
+		//首页 上一页 下一页 尾页
+		String firstPageLink = "<a href='"+url+"&currentPage=1'>首页</a>";
+		String prePageLink = "<a href='"+url+"&currentPage="+(page.getCurrentPage()-1)+"'>&lt;&lt;</a>";
+		if(page.isFirst()){
+			firstPageLink = "首页";
+			prePageLink = "&lt;&lt;";
 		}
+		String nextPageLink = "<a href='"+url+"&currentPage="+(page.getCurrentPage()+1)+"'>&gt;&gt;</a>"; 
+		String lastPageLink = "<a href='"+url+"&currentPage="+page.getTotalPage()+"'>尾页</a>";
+		if(page.isLast()){
+			nextPageLink = "&gt;&gt;";
+			lastPageLink = "尾页";
+		}
+		if(null == id){
+			//使用官方id=mgpage的css样式，请导入项目中的css目录下的mg-page.xx.css文件
+			sb.append("<ul id='mgpage'>");
+		}else{
+			sb.append("<ul id='"+id+"'>");
+		}
+		sb.append("<li>"+firstPageLink+"</li>");
+		sb.append("<li>"+prePageLink+"</li>");
+		sb.append("<li>"+nextPageLink+"</li>");
+		sb.append("<li>"+lastPageLink+"</li>");
+		sb.append("</ul>");
 		try {
 			out.print(sb.toString());
 		} catch (IOException e) {
@@ -43,5 +81,6 @@ public class MgPageTag extends TagSupport{
 		}
 		return super.doStartTag();
 	}
+	
 	
 }

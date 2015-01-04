@@ -16,10 +16,22 @@
 		<body-content>JSP</body-content>
 		<description>自定义分页标签</description>
 		<attribute>
-			<name>list</name>
+			<name>page</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue> 
 		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>flase</required>
+			<description>分页导航ul的id选择符</description>
+		</attribute>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue> 
+			<description>当前分页的主连接</description>
+		</attribute>
 	</tag>
+	
 	
 </taglib>
