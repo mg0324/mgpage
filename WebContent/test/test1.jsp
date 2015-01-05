@@ -16,10 +16,15 @@
 			data.add("xiaoqiang");
 			data.add("xiaoyao");
 			data.add("xiaowen");
+			String strCurrentPage = request.getParameter("currentPage");
+			int currentPage = 1;
+			int pageSize = 1;
+			if(null != strCurrentPage)
+				currentPage = Integer.parseInt(strCurrentPage);
 			
 			Page p = new Page();
 			p.setList(data);
-			p.paging(1, 1, 4);
+			p.paging(currentPage, pageSize, 60);
 			request.setAttribute("page", p);
 		%>
 		<!-- 显示数据 -->
@@ -27,7 +32,7 @@
 			${p }<br/>
 		</c:forEach>
 		<!-- 显示分页导航 -->
-		<mg:page page="${page }" url="${pageContext.request.contextPath}/xx.do?action=toDo">
+		<mg:page page="${page }" url="${pageContext.request.contextPath}/test/test1.jsp?r=xx">
 			
 		</mg:page>
 	</body>

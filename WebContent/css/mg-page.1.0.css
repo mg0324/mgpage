@@ -13,18 +13,19 @@ meigang 2015-1-4
 	border: solid #bdbdbd 1px;
 	border-radius:3px;
 }
+#mgpage li a{
+	background: #8BC9FF;
+}
+#mgpage .isNow{
+	background: #8BCE30;	
+}
 #mgpage li,#mgpage li a{
 	display:block;
 	width:40px;
 	height: 20px;
 	text-align:center;
 	line-height:20px;
-	
 	text-decoration: none;
-	background: #8BC9FF;
-	
 }
-.isNow{
-	background: #8BCE30;	
-}
+
 
