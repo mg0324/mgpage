@@ -12,19 +12,31 @@
 	<body>
 		<%
 			ArrayList data = new ArrayList();
-			data.add("xiaogang");
-			data.add("xiaoqiang");
-			data.add("xiaoyao");
-			data.add("xiaowen");
+			
 			String strCurrentPage = request.getParameter("currentPage");
 			int currentPage = 1;
 			int pageSize = 1;
-			if(null != strCurrentPage)
+			if(null != strCurrentPage){
 				currentPage = Integer.parseInt(strCurrentPage);
+				if(currentPage>4){
+					currentPage=4;
+				}
+			}
+			if(currentPage%2==0){
+				data.add("xiaogang");
+				data.add("xiaoqiang");
+				data.add("xiaoyao");
+				data.add("xiaowen");
+			}else{
+				data.add("小刚");
+				data.add("小强");
+				data.add("小瑶");
+				data.add("小文");
+			}
 			
 			Page p = new Page();
 			p.setList(data);
-			p.paging(currentPage, pageSize, 60);
+			p.paging(currentPage, pageSize, 4);
 			request.setAttribute("page", p);
 		%>
 		<!-- 显示数据 -->
@@ -32,8 +44,11 @@
 			${p }<br/>
 		</c:forEach>
 		<!-- 显示分页导航 -->
-		<mg:page page="${page }" url="${pageContext.request.contextPath}/test/test1.jsp?r=xx">
-			
+		<mg:page page="${page }" showNumberLink="true" showGoLink="true"
+			showPageInfo="true"
+			url="${pageContext.request.contextPath}/test/test1.jsp?r=xx">
 		</mg:page>
+		
+		
 	</body>
 </html>

@@ -20,6 +20,34 @@ public class MgPageTag extends TagSupport{
 	private String url;
 	private Page page;
 	private String id;
+	private boolean showNumberLink;
+	private boolean showGoLink;
+	private boolean showPageInfo;
+	
+	public boolean isShowPageInfo() {
+		return showPageInfo;
+	}
+
+	public void setShowPageInfo(boolean showPageInfo) {
+		this.showPageInfo = showPageInfo;
+	}
+
+	public boolean isShowNumberLink() {
+		return showNumberLink;
+	}
+
+	public void setShowNumberLink(boolean showNumberLink) {
+		this.showNumberLink = showNumberLink;
+	}
+
+	public boolean isShowGoLink() {
+		return showGoLink;
+	}
+
+	public void setShowGoLink(boolean showGoLink) {
+		this.showGoLink = showGoLink;
+	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -56,16 +84,74 @@ public class MgPageTag extends TagSupport{
 			firstPageLink = "首页";
 			prePageLink = "&lt;&lt;";
 		}
-		
 		if(null == id){
 			//使用官方id=mgpage的css样式，请导入项目中的css目录下的mg-page.xx.css文件
-			sb.append("<ul id='mgpage'>");
+			sb.append("<div id='mgpage'>");
 		}else{
-			sb.append("<ul id='"+id+"'>");
+			sb.append("<div id='"+id+"'>");
 		}
-		sb.append("<li>"+firstPageLink+"</li>");
-		sb.append("<li>"+prePageLink+"</li>");
 		
+		sb.append("<ul><li>"+firstPageLink+"</li>");
+		sb.append("<li>"+prePageLink+"</li>");
+		//数字链接
+		if(showNumberLink){
+			showNumberLink(sb);
+		}
+		String nextPageLink = "<a href='"+url+"&currentPage="+(page.getCurrentPage()+1)+"'>&gt;&gt;</a>"; 
+		String lastPageLink = "<a href='"+url+"&currentPage="+page.getTotalPage()+"'>尾页</a>";
+		if(page.isLast()){
+			nextPageLink = "&gt;&gt;";
+			lastPageLink = "尾页";
+		}
+		
+		//下一页 尾页
+		sb.append("<li>"+nextPageLink+"</li>");
+		sb.append("<li>"+lastPageLink+"</li>");
+		sb.append("</ul>");
+		//GO
+		if(showGoLink){
+			showGoLink(sb);
+		}
+		//显示分页信息
+		if(showPageInfo){
+			showPageInfo(sb);
+		}
+		
+		sb.append("</div>");
+		try {
+			out.print(sb.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return super.doStartTag();
+	}
+	/**
+	 * 显示分页信息
+	 * @param sb
+	 */
+	private void showPageInfo(StringBuffer sb) {
+		//分页信息显示
+		String descPart = "<desc>当前第<red> "+page.getCurrentPage()+"</red> 页 | 共 <red>"+page.getTotalPage()+"</red> 页 | 共<red> "+page.getTotalCount()+"</red> 条记录</desc>";
+		sb.append(descPart);
+	}
+	/**
+	 * 显示跳转到部分
+	 * @param sb
+	 */
+	private void showGoLink(StringBuffer sb) {
+		//跳转到第几页 9 GO
+		String goForm = "<form action='"+url+"' method='post'>";
+		goForm += "<input type='number' required min='1' max='"+page.getTotalPage()+"' name='currentPage'/>";
+		goForm += "<button type='submit'>GO</button>";
+		goForm += "</form>";
+		sb.append(goForm);
+	}
+	/**
+	 * 显示数字链接部分
+	 * @param sb
+	 */
+	private void showNumberLink(StringBuffer sb) {
 		//数字链接
 		if(page.getTotalPage()<=10){
 			for(int i=1;i<=page.getTotalPage();i++){
@@ -107,24 +193,6 @@ public class MgPageTag extends TagSupport{
 			}
 			
 		}
-		String nextPageLink = "<a href='"+url+"&currentPage="+(page.getCurrentPage()+1)+"'>&gt;&gt;</a>"; 
-		String lastPageLink = "<a href='"+url+"&currentPage="+page.getTotalPage()+"'>尾页</a>";
-		if(page.isLast()){
-			nextPageLink = "&gt;&gt;";
-			lastPageLink = "尾页";
-		}
-		
-		//下一页 尾页
-		sb.append("<li>"+nextPageLink+"</li>");
-		sb.append("<li>"+lastPageLink+"</li>");
-		sb.append("</ul>");
-		try {
-			out.print(sb.toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return super.doStartTag();
 	}
 	
 	

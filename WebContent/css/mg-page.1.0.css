@@ -3,17 +3,25 @@ meigang 2015-1-4
 自定义分页导航的官方样式
 */
 #mgpage{
+	width:100%;
+	margin:0px;
+	margin-top: 5px;
+	margin-left: 10px;
+}
+#mgpage ul{
 	list-style-type: none;
 	width: 100%;
 	color:gray;
+	margin: 0px;
+	padding:0px;
 }
-#mgpage li{
+#mgpage ul li{
 	float: left;
 	margin-left: 5px;
 	border: solid #bdbdbd 1px;
 	border-radius:3px;
 }
-#mgpage li a{
+#mgpage ul li a{
 	background: #8BC9FF;
 }
 #mgpage .isNow{
@@ -27,5 +35,33 @@ meigang 2015-1-4
 	line-height:20px;
 	text-decoration: none;
 }
-
-
+#mgpage form{
+	display: block;
+	margin: 0px;
+	padding:0px;
+	margin-left: 10px;
+	float: left;
+}
+#mgpage form input{
+	width:50px;
+}
+#mgpage form button{
+	background:#8BC9FF; 
+	margin:0px;
+	width: 40px;
+	text-align: center;
+	border: 1px solid #bdbdbd;
+	height: 21px;
+}
+#mgpage desc{
+	display: block;
+	color:gray;
+	height: 20px;
+	line-height: 20px;
+	font-size:13px;
+	float:left;
+	margin-left: 10px;
+}
+#mgpage red{
+	color:red;
+}

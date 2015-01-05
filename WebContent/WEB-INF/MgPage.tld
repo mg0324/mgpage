@@ -19,6 +19,7 @@
 			<name>page</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue> 
+			<description>MgPage分页插件要显示的分页数据对象Page</description>
 		</attribute>
 		<attribute>
 			<name>id</name>
@@ -30,6 +31,21 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue> 
 			<description>当前分页的主连接</description>
+		</attribute>
+		<attribute>
+			<name>showNumberLink</name>
+			<required>false</required>
+			<description>是否开启数字链接部分</description>
+		</attribute>
+		<attribute>
+			<name>showGoLink</name>
+			<required>false</required>
+			<description>是否开启跳转到链接部分</description>
+		</attribute>
+		<attribute>
+			<name>showPageInfo</name>
+			<required>false</required>
+			<description>是否开启显示分页信息部分</description>
 		</attribute>
 	</tag>
 	
