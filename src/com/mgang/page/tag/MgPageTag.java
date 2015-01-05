@@ -76,17 +76,36 @@ public class MgPageTag extends TagSupport{
 				sb.append("<li>"+iLink+"</li>");
 			}
 		}else if(page.getTotalPage()>10){
-			for(int i=page.getCurrentPage()-4;i<page.getCurrentPage() && i>=1;i++){
-				String iLink = "<a href='"+url+"&currentPage="+i+"'>"+ i +"</a>";	
-				sb.append("<li>"+iLink+"</li>");
-			}
-			for(int i=page.getCurrentPage();i<page.getCurrentPage()+5 && i<=page.getTotalPage();i++){
-				String iLink = "<a href='"+url+"&currentPage="+i+"'>"+ i +"</a>";	
-				if(i==page.getCurrentPage()){
-					iLink = "<a class='isNow' href='javascript:void(0);'>"+ i +"</a>";
+			if(page.getCurrentPage()<10){
+				for(int i=1;i<=10;i++){
+					String iLink = "<a href='"+url+"&currentPage="+i+"'>"+ i +"</a>";	
+					if(i==page.getCurrentPage()){
+						iLink = "<a class='isNow' href='javascript:void(0);'>"+ i +"</a>";
+					}
+					sb.append("<li>"+iLink+"</li>");
 				}
-				sb.append("<li>"+iLink+"</li>");
+			}else if((page.getTotalPage()-page.getCurrentPage())<10){
+				for(int i=(page.getTotalPage()-10);i<=page.getTotalPage();i++){
+					String iLink = "<a href='"+url+"&currentPage="+i+"'>"+ i +"</a>";	
+					if(i==page.getCurrentPage()){
+						iLink = "<a class='isNow' href='javascript:void(0);'>"+ i +"</a>";
+					}
+					sb.append("<li>"+iLink+"</li>");
+				}
+			}else{
+				for(int i=page.getCurrentPage()-4;i<page.getCurrentPage() && i>=1;i++){
+					String iLink = "<a href='"+url+"&currentPage="+i+"'>"+ i +"</a>";	
+					sb.append("<li>"+iLink+"</li>");
+				}
+				for(int i=page.getCurrentPage();i<page.getCurrentPage()+5 && i<=page.getTotalPage();i++){
+					String iLink = "<a href='"+url+"&currentPage="+i+"'>"+ i +"</a>";	
+					if(i==page.getCurrentPage()){
+						iLink = "<a class='isNow' href='javascript:void(0);'>"+ i +"</a>";
+					}
+					sb.append("<li>"+iLink+"</li>");
+				}
 			}
+			
 		}
 		String nextPageLink = "<a href='"+url+"&currentPage="+(page.getCurrentPage()+1)+"'>&gt;&gt;</a>"; 
 		String lastPageLink = "<a href='"+url+"&currentPage="+page.getTotalPage()+"'>尾页</a>";
